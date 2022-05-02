@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.otp.OTPActivity">
+
+
+    <TextView
+        android:id="@+id/id_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:animateFirstView="false"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:text="60s" />
+
+    <TextView
+        android:id="@+id/id_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/l1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="01234567890" />
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/id_otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:bar_enabled="true"
+            app:bar_height="2dp"
+            app:height="40dp"
+            app:length="6"
+            app:otp_text_size="24dp"
+            app:width="40dp"
+            tools:otp="123456" />
+
+        <!--    <EditText-->
+        <!--        android:id="@+id/id_otp_view"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginStart="50dp"-->
+        <!--        android:layout_marginEnd="50dp"-->
+        <!--        android:gravity="center"-->
+        <!--        android:inputType="number"-->
+        <!--        android:maxLength="6" />-->
+
+        <Button
+            android:id="@+id/btn_id_next"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/id_send_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="20dp"
+            android:text="Send again"
+            android:clickable="false"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
