@@ -35,7 +35,7 @@ class OTPActivity : AppCompatActivity() {
         phoneNumber = intent.getStringExtra("ccp")!!
         Log.d(TAG, "onCreate: $phoneNumber")
         id_number.text = "Phone : $phoneNumber"
-        val otpNumber = id_otp_view.toString().trim()
+
         id_send_again.isClickable = false
 
         val counter = object : CountDownTimer(60000, 1000) {
@@ -55,11 +55,11 @@ class OTPActivity : AppCompatActivity() {
         sendOtp()
 
         btn_id_next.setOnClickListener {
-
-            if (otpNumber.isEmpty()) {
+            Log.d(TAG, "onCreate: ${id_otp_view.otp}")
+            if (id_otp_view.otp?.isEmpty() == true) {
                 Toast.makeText(this@OTPActivity, "Invalid OTP", Toast.LENGTH_SHORT).show()
             } else {
-                val credential = PhoneAuthProvider.getCredential(otpId, otpNumber)
+                val credential = PhoneAuthProvider.getCredential(otpId, id_otp_view.otp.toString())
                 signInWithPhoneAuthCredential(credential)
             }
 
