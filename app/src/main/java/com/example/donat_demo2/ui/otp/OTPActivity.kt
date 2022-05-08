@@ -7,12 +7,19 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donat_demo2.R
+import com.example.donat_demo2.model.UserModel
 import com.example.donat_demo2.ui.main.MainActivity
 import com.example.donatdemo1.utils.SharedPrefUtils
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_otpactivity.*
 import java.util.concurrent.TimeUnit
 
@@ -106,7 +113,9 @@ class OTPActivity : AppCompatActivity() {
                     val user = task.result?.user
                     Log.d(TAG, "signInWithPhoneAuthCredential: ${credential.smsCode.toString()}")
                     startActivity(Intent(this, MainActivity::class.java))
-                    sharedPrefUtils.saveUser(user?.uid.toString())
+                    sharedPrefUtils.saveUser(user?.uid.toString(),phoneNumber)
+                    val userModel = UserModel(user!!.uid, phoneNumber)
+                    saveUserInDatabase(userModel)
                     finishAffinity()
                 } else {
                     Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -114,4 +123,22 @@ class OTPActivity : AppCompatActivity() {
                 }
             }
     }
+
+    fun saveUserInDatabase(userModel: UserModel) {
+        val firebaseDatabase = Firebase.database
+        val databaseReference =
+            firebaseDatabase.getReference("users").child(phoneNumber)
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                databaseReference.setValue(userModel)
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
 }
