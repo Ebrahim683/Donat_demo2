@@ -3,6 +3,8 @@ package com.example.donat_demo2.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donat_demo2.R
@@ -30,21 +32,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         auth = FirebaseAuth.getInstance()
         sharedPrefUtils = SharedPrefUtils(this)
         phoneNumber = sharedPrefUtils.getUserNumber().userNumber!!
         Log.d(TAG, "onCreate: $phoneNumber")
         userList = ArrayList()
 
-        btn_id_logout.setOnClickListener {
-            sharedPrefUtils.logOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finishAffinity()
-        }
+        id_amount.text = "Balance = 500000 Taka"
 
         val firebaseDatabase = Firebase.database
         val databaseReference = firebaseDatabase.getReference("users")
-
+        id_user_list_count.text = "Loading..."
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 userList.clear()
@@ -55,11 +55,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 Log.d(TAG, "onDataChange: Total users: ${userList.size}")
-                Toast.makeText(
-                    this@MainActivity,
-                    "Total users: ${userList.size}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                id_user_list_count.text = "Total users: ${userList.size} person"
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -69,4 +65,21 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var menu = menuInflater.inflate(R.menu.top_menu_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_log_out -> {
+                sharedPrefUtils.logOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finishAffinity()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
