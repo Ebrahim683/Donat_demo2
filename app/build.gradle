@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.donat_demo2"
@@ -53,4 +53,8 @@ dependencies {
 
     //OTP pin view
     implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
+
+    //sslcommerze
+    implementation (name: 'sslCommerzSdk', ext:'aar')
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

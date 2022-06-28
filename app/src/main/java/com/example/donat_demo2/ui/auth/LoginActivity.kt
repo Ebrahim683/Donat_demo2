@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.donat_demo2.ui.main.MainActivity
 import com.example.donat_demo2.R
 import com.example.donat_demo2.ui.otp.OTPActivity
-import com.example.donatdemo1.utils.SharedPrefUtils
+import com.example.donat_demo2.utils.SharedPrefUtils
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker
 import kotlinx.android.synthetic.main.activity_login.*
 

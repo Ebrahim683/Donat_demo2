@@ -1,4 +1,4 @@
-package com.example.donatdemo1.utils
+package com.example.donat_demo2.utils
 
 import android.content.Context
 import com.example.donat_demo2.model.UserModel
@@ -15,6 +15,7 @@ class SharedPrefUtils(var context: Context) {
         editor.putBoolean("loggedIn", true)
         editor.apply()
     }
+
 
     fun getUserNumber(): UserModel {
         val sharedPreferences = context.getSharedPreferences(SHAREDPREF, Context.MODE_PRIVATE)
